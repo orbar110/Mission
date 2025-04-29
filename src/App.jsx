@@ -47,7 +47,7 @@ actionBusMission1.emit("PRINT", "Can");
 // Mission2 - virtual keyboard using the events class
 const actionBusMission2 = new MyactionBusMission1();
 
-// Checks if word exists using free api
+// Checks if word exists using a free api
 const checkWordInDictionary = async (word) => {
   const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
   return response.ok;
@@ -105,16 +105,19 @@ const App = () => {
   const [boxState, setBoxState] = useState("idle");
 
   useEffect(() => {
+    // Emit event when clicking a letter
     const addChar = (char) => {
       setBoxState("idle");
       setChars((prev) => (prev.length < 5 ? [...prev, char] : prev));
     };
 
+    // Emit event when deleting a letter
     const deleteChar = () => {
       setBoxState("idle");
       setChars((prev) => prev.slice(0, -1));
     };
 
+    // Emit event when submitting word
     const submit = async () => {
       if (chars.length === 5) {
         const word = chars.join("").toLowerCase();
